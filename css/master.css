@@ -36,30 +36,57 @@ h1 {
 	margin-top: 0.35em;
 }
 
+h2 {
+	font-size: 1.3em;
+	font-weight: 700;
+	text-decoration: underline;
+
+}
 #message-center {
 	background-color: white;
 	color: black;
-	height: 23em;
+	height: 432px;
 	width: 30%;
 /*	left: 20px;
 	top: 100px;*/
 	text-align: left;
 	margin: 5px;
-	margin-top: 5em;
+	margin-top: 16%;
+	/*padding: 1em;*/
 	/*overflow: hidden;*/
 	/*margin-left: 5px;*/
+}
+p {
+	display: inline-block;
+}
+
+#place-bet-buttons {
+	display: inline-block;
 }
 
 #message-center * {
 	margin-left: 7px;
 }
 
+#alert-container {
+	width: 94%;
+	height: 47%;
+	background-color: gray;
+	/*float: top;*/
+	margin: auto;
+	border: 1px solid rgba(10,10,10,0.8);
+	position: relative;
+	/*overflow: hidden;*/
+}
+
 #alert-center {
 	width: 94%;
-	height: 10.3em;
-	background-color: gray;
-	/*float: right;*/
-	margin: auto;
+	height: 75%;
+	background-color: rgba(20,20,20,0.5);
+	/*float: top;*/
+	margin: 0 auto;
+	border: 1px solid rgba(10,10,10,0.8);
+	position: relative;
 	/*overflow: hidden;*/
 }
 
@@ -69,12 +96,39 @@ h3 {
 	font-size: 22px;
 	font-weight: 300;
 	text-decoration: underline;
-	padding-top: 5px;
+	margin: 0 auto;
+	margin-top: 2px;
+	margin-bottom: 2px;
 }
+
+.dynamic-numbers {
+	text-align: right;
+	display: inline-block;
+
+}
+
 #dealer-hand {
-	/*background-color: black;*/
-	/*display: flex;*/
+	width: 62%;
+	float: right;
+	padding: 1em;
+	display: inline-block;
+	text-align: center;
+	box-sizing: border-box;
+/*	margin-top: 2em;
+	margin-right: 2em;*/
 }
+
+#player-hand {
+	width: 62%;
+	float: right;
+	padding: 1em;
+	display: inline-block;
+	text-align: center;
+	box-sizing: border-box;
+/*	margin-top: 2em;
+	margin-right: 2em;*/
+}
+
 #deal-cards {
 	width: 3.7em;
 	height: 3.7em;
@@ -83,29 +137,37 @@ h3 {
 	display: inline-block;
 }
 
-#hit-me {
-	width: 3.7em;
-	height: 3.7em;
+.action {
+	display: inline-block;
+	width: 3.8em;
+	height: 3.8em;
 	background-color: white;
 	border: 2px solid rgba(10,10,10,0.5);
+	margin-top: 5em;
+	position: relative;
+}
+
+#game-counter {
 	display: inline-block;
 }
 
-/*#fold {
+#game-counter span  {
+	background-color: red;
+}
+/*#hit-me {
+	width: 3.7em;
+	height: 3.7em;
+	background-color: white;
+	display: inline-block;
+}*/
+
+/*#stand {
 	width: 3.7em;
 	height: 3.7em;
 	background-color: white;
 	border: 2px solid rgba(10,10,10,0.5);
 	display: inline-block;
 }*/
-
-#stand {
-	width: 3.7em;
-	height: 3.7em;
-	background-color: white;
-	border: 2px solid rgba(10,10,10,0.5);
-	display: inline-block;
-}
 
 /*#raise {
 	width: 3.7em;
@@ -130,24 +192,58 @@ h3 {
     /*align-self: center;*/
 }
 
-#current-card {
-	width: 150px;
+.card {
+    width: 6em;
+    height: 7.5em;
+    margin-right: -1.5em;
+    margin-left: 0.2em;
+    padding: 0.2em;
+    background-color: white;
+    display: inline-block;
+    position: relative;
+    text-align: left;
+    font-family: 'cards';
+	font-style: normal;
+    border: 3.5px solid rgba(10,10,10,0.5);
+    border-radius: 0.5em;
+    color: black;
+}
+
+.face-down-card {
+    width: 6em;
+    height: 7.5em;
+    margin-right: -1.5em;
+    margin-left: 0.2em;
+    padding: 0.2em;
+    background-image: url('../img/blue-card-back.jpg');
+    background-size: 100%;
+    display: inline-block;
+    position: relative;
+    text-align: left;
+    font-family: 'cards';
+	font-style: normal;
+    border: 3.5px solid rgba(255,255,255,0.9);
+    border-radius: 0.5em;
+    color: white;
+}
+
+
+#dealer-current-card {
+/*	width: 150px;
 	height: 200px;
 	background-color: white;
 	margin: 0 auto;
 	margin-top: -8.3em;
 	margin-left: 20em;
 	margin-bottom: -4em;
-	border: 3.5px solid rgba(10,10,10,0.5);
-	font-family: 'cards';
-	font-style: normal;
+
 	color: black;
 	display: inline-block;
-	/*font-size: 2em;*/
+	font-size: 2em;*/
 }
 
 #player-current-card {
-		width: 150px;
+/*	width: 150px;
 	height: 200px;
 	background-color: white;
 	margin: 0 auto;
@@ -157,7 +253,7 @@ h3 {
 	border: 3.5px solid rgba(10,10,10,0.5);
 	font-family: 'cards';
 	font-style: normal;
-	color: black;
+	color: black;*/
 }
 
 @media (max-width: 750px) {

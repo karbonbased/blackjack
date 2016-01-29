@@ -5,49 +5,58 @@
 	<link rel="stylesheet" type="text/css" href="css/master.css">
 	<script src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
 	<link href='https://fonts.googleapis.com/css?family=Work+Sans:400,300,500,700' rel='stylesheet' type='text/css'>
-</head>
+	<meta name="viewport" content="width-device-width" />
+ </head>
 <body>
 	<header>
 		<h1>Blackjack</h1>
 	</header>
-			<section id="deck-area">
+<!-- 			<section id="deck-area">
 				<div id="used-cards"></div>
 				<div id="deck"></div>
 			</section>
-			
-			<section id="message-center">
-				<h2>Message Center</h2>
-				<p>Bank Roll
-					<div id="current-bet"></div>
-				</p>
-				<p>Place Bet</p>
-				<button class="bet">$5</button>
-				<button class="bet">$10</button>
-				<button class="bet">$20</button>
-				<button class="bet">$50</button>
-				<p>Current Bet
-					<div id="current-bet"></div>
-				</p>
-				<div id="alert-center">
-					<h3>Alerts</h3>
-				</div>
-			</section>
-
+			 -->
 			<section id="dealer-hand">
+				<div id="dealer-current-card" class="card">&hearts;</div>
+				<div id="dealer-current-card" class="face-down-card"></div>
 			</section>
 
 			<section id="player-hand">
-			<div id="player-current-card">	&spades;</div>
+				<div id="player-current-card" class="card">&spades;</div>
 			</section>
 
+			<section id="message-center">
+				<h2>Message Center</h2>
+				<p>Bank Roll
+					<div id="current-bankroll" class="dynamic-numbers">
+						$500
+					</div>
+
+				</p>
+				<div id="place-bet-buttons">
+					<button class="bet">Bet $5</button>
+					<button class="bet"> Bet $10</button>
+					<button class="bet"> Bet $20</button>
+					<button class="bet"> Bet $50</button>
+				</div>
+				<p>Current Bet
+					<div id="current-bet" class="dynamic-numbers"></div>
+				</p>
+				<div id="alert-container">
+					<h3>Alerts</h3>
+					<div id="alert-center">
+					</div>
+				</div>
+<div id="game-counter">Game Count<span>ex: 4/5 wins</span></div>
+
+			</section>
 
 		<div id="bottom">
 			<footer>
-				<div id="deal-cards">Deal</div>
-				<div id="hit-me">Hit Me</div>
-				<!-- <div id="fold">Fold</div> -->
-				<div id="stand">Stand</div>
-				<!-- <div id="raise">Raise Bet</div> -->
+				<div id="deal-cards" class="action">Deal</div>
+				<div id="hit-me"  class="action">Hit Me</div>
+				<div id="stand"  class="action">Stand</div>
+				<!-- <div id="raise">Raise Bet</div>  This will be in the message center and use the place bet buttons-->
 			</footer>
 </div>	
 </body>
