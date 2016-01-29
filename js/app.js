@@ -43,9 +43,10 @@ for (var i = 12; i < cards.length; i += 13) {
 
 console.log(cards);
 
-// changing cardValue of A to a boolean, will later use OR logic to determine if 1 or 11
+// changing cardValue of A to 11, later ACE will be treated as 11 
+//until hand is over 21 and then it'll become 1
 for (var i = 0; i < cards.length; i += 13) {
-	cards[i].cardValue = true
+	cards[i].cardValue = 11
 }
 
 console.log(cards);
@@ -69,7 +70,7 @@ function shuffleArr(array) {
 
 			//pick a remaining element at random
 		randomIndex = Math.floor(Math.random() * currentIndex)
-		currentIndex -= 1
+		currentIndex -= 1 //remove 1 from the current index
 
 		// swap it with the current element 
 		tempValue = array[currentIndex]; // storing the current index as temp value
@@ -83,11 +84,22 @@ shuffleArr(cards);
 
 console.log(cards);
 
+var $bankRoll = $('#current-bankroll')
+console.log($bankRoll);
+$bankRoll.text('500');
 
 var $currentBet = $('#current-bet');
 // $currentBet.text("");
 console.log($currentBet);
-var betButton = $('.bet');
+var $betButton = $('.bet');
+console.log($betButton);
+
+//establish the betting logic
+$betButton.click(function() {
+	var $betChoice = $(this).text().replace(/\$/g, '');
+	this.parseInt($betChoice.text)
+	console.log($betChoice)
+})
 
 // deal cards will make a player place a bet before cards are dealt so IF current bet = 0, alert player
 // set up to intially deal the cards - should give 2 cards to dealer, 2 to player
@@ -104,15 +116,28 @@ $dealCards.click(function() {
 	if ($currentBet.is(':empty')) {
 		$alertCenter.text("You must place bet before cards are dealt");
 	} //closes if check for bet
-	var $dealerCard = $('<div');
+	else {
+	var $dealerCard = $('<div>');
 	$dealerCard.addClass("face-down-card");
 	$dealerCard.appendTo($('#dealer-hand'));
+	
 	var $dealerShowCard = $('<div>')
-$currentCards.attr("id", "current-card")
-$currentCards.addClass("card");
-$currentCards.appendTo($('#dealer-hand'));
-	var hand = $('cards[0]')
-	console.log(hand);
+	$dealerShowCard.attr("id", "current-card")
+	$dealerShowCard.addClass("card");
+	$dealerShowCard.appendTo($('#dealer-hand'));
+	// var hand = $('cards[0]')
+	// console.log(hand);
+	var $initialPlayerCard = $('<div>');
+	$initialPlayerCard.attr("id", "player-current-card");
+	$initialPlayerCard.addClass("card");
+	$initialPlayerCard.appendTo($('#player-hand'));
+
+var $PlayerCard = $('<div>');
+	$PlayerCard.attr("id", "player-current-card");
+	$PlayerCard.addClass("card");
+	$PlayerCard.appendTo($('#player-hand'));
+
+} //close else
 });
 
 
@@ -140,9 +165,10 @@ $currentCards.appendTo($('#dealer-hand'));
 // 	console.log(hand);
 // });
 
-// stand should check win conditions
+// stand should ALLOW dealer to play and THEN check win conditions
 
 
 // Write out win conditions
 
 
+// NOTE: set Ace to 11 until hand count hits over 21 and then it comes 1
