@@ -180,7 +180,7 @@ h3 {
     width: 6em;
     height: 7.5em;
     margin-right: -1.5em;
-    margin-left: 0.2em;
+    margin-left: -0.5em;
     padding: 0.2em;
     background-color: white;
     display: inline-block;
@@ -193,22 +193,18 @@ h3 {
     color: black;
 }
 
-.face-down-card {
-    width: 6em;
-    height: 7.5em;
-    margin-right: -1.5em;
-    margin-left: 0.2em;
-    padding: 0.2em;
-    background-image: url('../img/blue-card-back.jpg');
-    background-size: 100%;
-    display: inline-block;
-    position: relative;
-    text-align: left;
-    font-family: 'cards';
-	font-style: normal;
-    border: 3.5px solid rgba(255,255,255,0.9);
-    border-radius: 0.5em;
-    color: white;
+.bet {
+	background-color: rgba(40,40,40,0.8);
+	color: white;
+	width: 3.6em;
+	height: 2.5em;
+	border-radius: 20px;
+	box-shadow: 10px 10px 5px #888888;
+}
+
+.bet:hover {
+	background-color: rgba(230,230,230,0.8);
+	color: black;
 }
 
 
@@ -238,6 +234,42 @@ h3 {
 	font-family: 'cards';
 	font-style: normal;
 	color: black;*/
+}
+
+.Spades {
+	background-image: url(../img/spade.svg);
+	background-size: 100% 100%;
+}
+
+.Hearts {
+	background-image: url(../img/heart.svg);
+	background-size: 100% 100%;
+}
+.Clubs {
+	background-image: url(../img/club.svg);
+	background-size: 100% 100%;
+}
+.Diamonds {
+	background-image: url(../img/diamond.svg);
+	background-size: 100% 100%;
+}
+
+.face-down-card {
+    width: 6em;
+    height: 7.5em;
+    margin-right: -1.5em;
+    margin-left: 0.2em;
+    padding: 0.2em;
+    background-image: url('../img/blue-card-back.jpg');
+    background-size: 100%;
+    display: inline-block;
+    position: relative;
+    text-align: left;
+    font-family: 'cards';
+	font-style: normal;
+    border: 3.5px solid rgba(255,255,255,0.9);
+    border-radius: 0.5em;
+    color: white;
 }
 
 @media (max-width: 640px) {

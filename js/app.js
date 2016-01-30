@@ -88,22 +88,31 @@ var player = {
 	money: 500,
 	currentBet: 0,
 	currentHand: [],
-	handTotal: function(array) {
+	handTotal: function(currentHand) {
 		for (i = 0; i < currentHand.length; i++) {
 		currentHand += i
 		}
-	}
+	},
+	wins: 0
 }
 
 var dealer = {
 	currentHand: [],
 	handTotal: function(array) {
-		for (i = 0; i < currentHand.length; i++) {
-		currentHand += i
+		for (i = 0; i < array.length; i++) {
+		array += i
 		}
 	}
 }
+console.log(cards);
+var gameInProgress = false;
+var gameCounter = 0;
 
+function checkTotal(array) {
+		for (i = 0; i < array.length; i++) {
+		array += i
+	}
+}
 // dealer.currentHand.push(2)
 // console.log(dealer.currentHand)
 // console.log(player.money)
@@ -112,7 +121,7 @@ var $bankRoll = $('#current-bankroll')
 $bankRoll.text(player.money);
 
 var $currentBet = $('#current-bet');
-// $currentBet.text("");
+$currentBet.text(player.currentBet);
 console.log($currentBet);
 
 var $betButton = $('.bet');
@@ -121,14 +130,18 @@ var $betButton = $('.bet');
 //establish the betting logic
 $betButton.click(function() {
 	var $betChoice = $(this).text().replace(/\$/g, '');
-	var $betNum = parseInt($betChoice)
-	return player.money - $betNum
-	console.log(player.money)
-	// this.parseInt($betChoice.text)
-	console.log($betNum)
-	console.log(typeof $betNum)
+	var $betNum = parseInt($betChoice);
+	player.money -= $betNum;
+	console.log(player.money);
+	$bankRoll.text(player.money);
+	player.currentBet += $betNum;
+	$currentBet.text(player.currentBet)
+	console.log(typeof $currentBet);
 })
 
+// establish the game counter
+var $winsTotal = $('#count');
+$winsTotal.text("You've won " + player.wins + " out of " + gameCounter);
 // deal cards will make a player place a bet before cards are dealt so IF current bet = 0, alert player
 // set up to intially deal the cards - should give 2 cards to dealer, 2 to player
 // both player cards will be visible but the dealer cards wtil only have the second one visible.
@@ -141,34 +154,78 @@ var $dealCards = $('#deal-cards');
 var $alertCenter = $('#alert-center');
 // console.log($alertCenter.text);
 
+function drawPlayerCard() {
+	cards.shift(player.currentHand);
+	player.currentHand.unshift(cards[0]);
+}
+
+function drawDealerCard() {
+	cards.shift(dealer.currentHand);
+	dealer.currentHand.unshift(cards[0]);
+}
 
 $dealCards.click(function() {
-	if ($currentBet.is(':empty')) {
-		$alertCenter.text("You must place bet before cards are dealt");
+	if (gameInProgress == true) {
+		return;
+	}
+	else if (player.currentBet == 0) {
+		return $alertCenter.text("You must place bet before cards are dealt");
 	} //closes if check for bet
 	else {
-	var $dealerCard = $('<div>');
-	$dealerCard.addClass("face-down-card");
-	$dealerCard.appendTo($('#dealer-hand'));
+	var $dealerHiddenCard = $('<div>');
+	$dealerHiddenCard.addClass("face-down-card");
+	$dealerHiddenCard.appendTo($('#dealer-hand'));
+	drawDealerCard();
+	$dealerHiddenCard.text(dealer.currentHand[0].cardValue);
+	$dealerHiddenCard.addClass(dealer.currentHand[0].suit);
+	// $dealerHiddenCard.addClass("special");
 	
-	var $dealerShowCard = $('<div>')
-	$dealerShowCard.attr("id", "current-card")
-	$dealerShowCard.addClass("card");
-	$dealerShowCard.appendTo($('#dealer-hand'));
+	var $dealerCard = $('<div>')
+	$dealerCard.attr("id", "current-card")
+	$dealerCard.addClass("card");
+	$dealerCard.appendTo($('#dealer-hand'));
+	$dealerCard.text(dealer.currentHand[0].cardValue);
+	$dealerCard.addClass(dealer.currentHand[0].suit);
 	// var hand = $('cards[0]')
 	// console.log(hand);
 	var $initialPlayerCard = $('<div>');
 	$initialPlayerCard.attr("id", "player-current-card");
 	$initialPlayerCard.addClass("card");
 	$initialPlayerCard.appendTo($('#player-hand'));
+	drawPlayerCard();
+	console.log(player.currentHand[0].cardValue)
+	$initialPlayerCard.text(player.currentHand[0].cardValue)
+	$initialPlayerCard.addClass(player.currentHand[0].suit)
+	console.log(player.currentHand[0].suit)
 
+// var $playerHit(function(){
 var $PlayerCard = $('<div>');
 	$PlayerCard.attr("id", "player-current-card");
 	$PlayerCard.addClass("card");
 	$PlayerCard.appendTo($('#player-hand'));
-
+	drawPlayerCard();
+	$PlayerCard.text(player.currentHand[0].cardValue);
+	$PlayerCard.addClass(player.currentHand[0].suit);
+	player.handTotal(player.currentHand[0]);
+	console.log(player.handTotal)
+// }) //close playerhit function
+// $playerhit()
+	var $hitButton = $('#hit-me');
+	$hitButton.click(function() {
+	var $PlayerCard = $('<div>');
+	$PlayerCard.attr("id", "player-current-card");
+	$PlayerCard.addClass("card");
+	$PlayerCard.appendTo($('#player-hand'));
+	drawPlayerCard();
+	$PlayerCard.text(player.currentHand[0].cardValue)
+	$PlayerCard.addClass(player.currentHand[0].suit)
+	}) //close hit button
 } //close else
-});
+gameInProgress = true;
+gameCounter += 1;
+var $winsTotal = $('#count');
+$winsTotal.text("You've won " + player.wins + " out of " + gameCounter);
+}); //close deal cards
 
 
 // Hit me button should add 1 card to the player hand
