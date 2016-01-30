@@ -21,9 +21,9 @@ function buildDeck() {
 
 buildDeck();
 
-console.log(cards);
-console.log(cards[0]);
-console.log
+// console.log(cards);
+// console.log(cards[0]);
+// console.log
 
 // iterating through cards to change face cards to all have cardValue = 10
 //Start with Jacks
@@ -41,7 +41,7 @@ for (var i = 12; i < cards.length; i += 13) {
 	cards[i].cardValue = 10
 }
 
-console.log(cards);
+// console.log(cards);
 
 // changing cardValue of A to 11, later ACE will be treated as 11 
 //until hand is over 21 and then it'll become 1
@@ -49,7 +49,7 @@ for (var i = 0; i < cards.length; i += 13) {
 	cards[i].cardValue = 11
 }
 
-console.log(cards);
+// console.log(cards);
 
 // // check Ace boolean and assign value
 // 	if ((cards.cardName = 'A') && (cardValue = true)) {
@@ -82,34 +82,64 @@ function shuffleArr(array) {
 
 shuffleArr(cards);
 
-console.log(cards);
+// console.log(cards);
 
+var player = {
+	money: 500,
+	currentBet: 0,
+	currentHand: [],
+	handTotal: function(array) {
+		for (i = 0; i < currentHand.length; i++) {
+		currentHand += i
+		}
+	}
+}
+
+var dealer = {
+	currentHand: [],
+	handTotal: function(array) {
+		for (i = 0; i < currentHand.length; i++) {
+		currentHand += i
+		}
+	}
+}
+
+// dealer.currentHand.push(2)
+// console.log(dealer.currentHand)
+// console.log(player.money)
 var $bankRoll = $('#current-bankroll')
-console.log($bankRoll);
-$bankRoll.text('500');
+// console.log($bankRoll);
+$bankRoll.text(player.money);
 
 var $currentBet = $('#current-bet');
 // $currentBet.text("");
 console.log($currentBet);
+
 var $betButton = $('.bet');
-console.log($betButton);
+// console.log($betButton);
 
 //establish the betting logic
 $betButton.click(function() {
 	var $betChoice = $(this).text().replace(/\$/g, '');
-	this.parseInt($betChoice.text)
-	console.log($betChoice)
+	var $betNum = parseInt($betChoice)
+	return player.money - $betNum
+	console.log(player.money)
+	// this.parseInt($betChoice.text)
+	console.log($betNum)
+	console.log(typeof $betNum)
 })
 
 // deal cards will make a player place a bet before cards are dealt so IF current bet = 0, alert player
 // set up to intially deal the cards - should give 2 cards to dealer, 2 to player
 // both player cards will be visible but the dealer cards wtil only have the second one visible.
 
+var $playerHand = $('#player-hand')
+// console.log($playerHand)
 var $dealCards = $('#deal-cards');
-console.log($dealCards);
+// console.log($dealCards);
 
 var $alertCenter = $('#alert-center');
-console.log($alertCenter.text);
+// console.log($alertCenter.text);
 
 
 $dealCards.click(function() {
@@ -172,3 +202,30 @@ var $PlayerCard = $('<div>');
 
 
 // NOTE: set Ace to 11 until hand count hits over 21 and then it comes 1
+
+
+// ===========
+// 1:1
+// ==========
+// MVP
+// - Shopwcase some form of responseive as pure MVP
+
+// Logicside
+// - createa flag: a booly value which if true allows the deal buttonm if false doesnt
+// - when u deal change the flag
+
+// player
+// - bet
+// - money
+// - handvalue = []
+// - totalhand = function that returns the card values
+
+// dealer
+// - handvalue = []
+// - totalhand = function that returns the card values
+
+// hit
+
+// User
+
+

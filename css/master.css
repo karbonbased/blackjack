@@ -21,7 +21,10 @@ body {
 	padding: 0;
 	/*display: flex;*/
 }
-
+ 
+#mobile * {
+	display: none;
+}
 header {
 	height: 4em;
     background: rgba(40,40,40,0.6);
@@ -50,8 +53,8 @@ h2 {
 /*	left: 20px;
 	top: 100px;*/
 	text-align: left;
-	margin: 5px;
-	margin-top: 16%;
+	margin-left: 10px;
+	margin-top: 7%	;
 	/*padding: 1em;*/
 	/*overflow: hidden;*/
 	/*margin-left: 5px;*/
@@ -157,28 +160,6 @@ h3 {
 	background-color: rgba(140,220,200,0.4);
 	text-align: right;
 }
-/*#hit-me {
-	width: 3.7em;
-	height: 3.7em;
-	background-color: white;
-	display: inline-block;
-}*/
-
-/*#stand {
-	width: 3.7em;
-	height: 3.7em;
-	background-color: white;
-	border: 2px solid rgba(10,10,10,0.5);
-	display: inline-block;
-}*/
-
-/*#raise {
-	width: 3.7em;
-	height: 3.7em;
-	background-color: white;
-	border: 2px solid rgba(10,10,10,0.5);
-	display: inline-block;
-}*/
 
 #bottom {
 	left:1em;
@@ -259,8 +240,50 @@ h3 {
 	color: black;*/
 }
 
-@media (max-width: 750px) {
-/*	* {
+@media (max-width: 640px) {
+	* {
 		background-color: black;
-	}*/
+/*		display: none;	*/
+	}
+	body {
+		background-color: black;
+	}
+
+	#mobile * {
+	display: block;
+	margin: 0 auto;
+	}
+	#frown {
+ 	max-width: 100%;
+ 	/*padding: 10px;*/
+ 	}
+
+ 	#frownDiv {
+ 		width: 80%;
+ 	}
+ 	#mobile h1 {
+ 		margin: 10px;
+ 	}
+ 	#mobile p {
+ 		margin: 20px;
+ 	}
+
+ 	#mobile input {
+ 		padding: 10px;
+ 	}
+	header {
+		display: none;
+	}
+	#message-center {
+		display: none;
+	}
+	#hit-me {
+		display: none;
+	}
+	#deal-cards {
+		display: none;
+	}
+	#stand {
+		display: none;
+	}
 }

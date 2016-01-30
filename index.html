@@ -5,9 +5,22 @@
 	<link rel="stylesheet" type="text/css" href="css/master.css">
 	<script src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
 	<link href='https://fonts.googleapis.com/css?family=Work+Sans:400,300,500,700' rel='stylesheet' type='text/css'>
-	<meta name="viewport" content="width-device-width" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
  </head>
 <body>
+<div id="mobile">
+	<h1>Sorry</h1>
+	<div id="frownDiv">
+		<img src="img/persons-0017.png" id="frown">
+	</div>
+	<p>Our game is currently only for desktop, we are currently seeking seed funding to develop our awesome game for tablet and mobile. If you'd like to donate, it would be greatly appreciated.</p>
+	<form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
+<input type="hidden" name="cmd" value="_s-xclick">
+<input type="hidden" name="hosted_button_id" value="6AJBCBXRDS4LQ">
+<input type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_donate_LG.gif" border="0" name="submit" alt="PayPal - The safer, easier way to pay online!">
+</form>
+</div>
 	<header>
 		<h1>Blackjack</h1>
 	</header>
@@ -33,13 +46,13 @@
 
 				</p>
 				<div id="place-bet-buttons">
-					<button id="bet5" class="bet">$5</button>
-					<button id="bet10" class="bet"> Bet $10</button>
-					<button id="bet20" class="bet"> Bet $20</button>
-					<button id="bet50" class="bet"> Bet $50</button>
+					<button class="bet">$5</button>
+					<button class="bet">$10</button>
+					<button class="bet">$20</button>
+					<button class="bet">$50</button>
 				</div>
 				<p>Current Bet
-					<div id="current-bet" class="dynamic-numbers"></div>
+					<div id="current-bet" class="dynamic-numbers">50</div>
 				</p>
 				<div id="alert-container">
 					<h3>Alerts</h3>
