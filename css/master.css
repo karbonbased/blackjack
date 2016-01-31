@@ -48,7 +48,8 @@ h2 {
 #message-center {
 	background-color: white;
 	color: black;
-	height: 432px;
+	text-shadow: 0 2px 0 #d3d3d3;
+	height: 458px;
 	width: 30%;
 /*	left: 20px;
 	top: 100px;*/
@@ -75,6 +76,7 @@ p {
 	width: 94%;
 	height: 47%;
 	background-color: gray;
+	text-shadow: none;
 	/*float: top;*/
 	margin: auto;
 	border: 1px solid rgba(10,10,10,0.8);
@@ -87,6 +89,7 @@ p {
 	height: 75%;
 	background-color: rgba(20,20,20,0.5);
 	color: white;
+	text-shadow: none;
 	/*float: top;*/
 	margin: 0 auto;
 	border: 1px solid rgba(10,10,10,0.8);
@@ -199,7 +202,7 @@ h3 {
 	width: 3.6em;
 	height: 2.5em;
 	border-radius: 20px;
-	box-shadow: 10px 10px 5px #888888;
+	box-shadow: -3px 5px 10px #888888
 }
 
 .bet:hover {
