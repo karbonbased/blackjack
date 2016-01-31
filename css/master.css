@@ -321,4 +321,8 @@ h3 {
 	#stand {
 		display: none;
 	}
+
+	.card {
+		display: none;
+	}
 }

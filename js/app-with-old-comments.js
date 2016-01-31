@@ -113,8 +113,6 @@ var $bankRoll = $('#current-bankroll')
 // console.log($bankRoll);
 $bankRoll.text(player.money);
 
-var $winsTotal = $('#count');
-
 var $currentBet = $('#current-bet');
 $currentBet.text(player.currentBet);
 console.log($currentBet);
@@ -206,14 +204,10 @@ function blackJack() {
 	if (player.handTotal == 21) {
 		$alertCenter.html("Blackjack! You win!<br/><br/>Hit deal to start a new game!");
 		player.wins += 1;
-		$winsTotal.text("You've won " + player.wins + " out of " + gameCounter);
 		payOut();
-		gameInProgress = false;
 	} // close if for 21
 	else if (dealer.handTotal == 21) {
 		$alertCenter.html("Dealer has blackjack!<br/> You lose :(<br/><br/>Hit deal to start a new game!");
-		lostCash();
-		gameInProgress = false;
 	}
 	else {
 		console.log("no blackjack... :(")
@@ -225,32 +219,25 @@ function checkWinner() {
 	if (player.handTotal > 21) {
 		$alertCenter.html("BUST!")
 		lostCash();
-		gameInProgress = false;
 	} // closes else if BUST
 	else if (dealer.handTotal > 21) {
-		$alertCenter.html("Dealer BUST! You win!")
+		$alertCenter.html("Deaer BUST! You win!")
 		player.wins += 1;
-		$winsTotal.text("You've won " + player.wins + " out of " + gameCounter);
 		payOut();
-		gameInProgress = false;
 	}
 	else if ((player.handTotal == dealer.handTotal)) {
 		$alertCenter.html("This would be a tie");
 		player.money = (player.currentBet + player.money);
 		lostCash();
-		gameInProgress = false;
 	} //closes else if tie
 	else if (player.handTotal > dealer.handTotal) {
 		$alertCenter.html("player wins!")
-		player.wins += 1
-		$winsTotal.text("You've won " + player.wins + " out of " + gameCounter);
+		player.wins += 1;
 		payOut();
-		gameInProgress = false;
 	} // closes else if player wins
 	else if (player.handTotal < dealer.handTotal) {
 		$alertCenter.html("dealer wins! :(")
 		lostCash()
-		gameInProgress = false;
 	}
 } // closes checkWinner function
 
@@ -274,7 +261,7 @@ $dealCards.click(function() {
 	$dealerCard.addClass("card");
 	$dealerCard.appendTo($('#dealer-hand'));
 	drawDealerCard();
-	$dealerCard.text(dealer.currentHand[0].cardName);
+	$dealerCard.text(dealer.currentHand[0].cardValue);
 	$dealerCard.addClass(dealer.currentHand[0].suit);
 	getDealerHandTotal();
 
@@ -286,7 +273,7 @@ $dealCards.click(function() {
 	$initialPlayerCard.appendTo($('#player-hand'));
 	drawPlayerCard();
 	console.log(player.currentHand[0].cardValue);
-	$initialPlayerCard.text(player.currentHand[0].cardName);
+	$initialPlayerCard.text(player.currentHand[0].cardValue);
 	$initialPlayerCard.addClass(player.currentHand[0].suit);
 	console.log(player.currentHand[0].suit);
 
@@ -295,7 +282,7 @@ var $PlayerCard = $('<div>');
 	$PlayerCard.addClass("card");
 	$PlayerCard.appendTo($('#player-hand'));
 	drawPlayerCard();
-	$PlayerCard.text(player.currentHand[0].cardName);
+	$PlayerCard.text(player.currentHand[0].cardValue);
 	$PlayerCard.addClass(player.currentHand[0].suit);
 	getPlayerHandTotal();
 	// getVisibleDealerTotal();
@@ -307,55 +294,44 @@ var $PlayerCard = $('<div>');
 
 	var $hitButton = $('#hit-me');
 	$hitButton.click(function() {
-		var $PlayerCard = $('<div>');
-		$PlayerCard.attr("id", "player-current-card");
-		$PlayerCard.addClass("card");
-		$PlayerCard.appendTo($('#player-hand'));
-		drawPlayerCard();
-		$PlayerCard.text(player.currentHand[0].cardName);
-		$PlayerCard.addClass(player.currentHand[0].suit);
-		getPlayerHandTotal();
-		$alertCenter.html("Your hand total is " + player.handTotal +" and dealer is showing " + dealer.currentHand[0].cardValue + "<br/>" + "<br/>" + "Would you like to hit or stand?");
-		blackJack();
+	var $PlayerCard = $('<div>');
+	$PlayerCard.attr("id", "player-current-card");
+	$PlayerCard.addClass("card");
+	$PlayerCard.appendTo($('#player-hand'));
+	drawPlayerCard();
+	$PlayerCard.text(player.currentHand[0].cardValue);
+	$PlayerCard.addClass(player.currentHand[0].suit);
+	getPlayerHandTotal();
+	$alertCenter.html("Your hand total is " + player.handTotal +" and dealer is showing " + dealer.currentHand[0].cardValue + "<br/>" + "<br/>" + "Would you like to hit or stand?");
+	blackJack();
 	}) //close hit button
-
-	var $standButton = $('#stand');
-	$standButton.click(function() {
-		$alertCenter.html("Dealer will now take his turn");
-		$dealerHiddenCard.addClass("card");
-		$dealerHiddenCard.removeClass("face-down-card");
-		$dealerHiddenCard.text(dealer.currentHand[1].cardName);
-		console.log($dealerHiddenCard)
-
-		// var $newdealerCard = $('<div>')
-		// $dealerCard.attr("id", "current-card")
-		// $dealerCard.addClass("card");
-		// $dealerCard.appendTo($('#dealer-hand'));
-		// drawDealerCard();
-		// $dealerCard.text(dealer.currentHand[0].cardName);
-		// $dealerCard.addClass(dealer.currentHand[0].suit);
-		// getDealerHandTotal();
-		// 	console.log($dealerCard)
-	})
 
 	 
 } //close else
 gameInProgress = true;
 gameCounter += 1;
+var $winsTotal = $('#count');
 $winsTotal.text("You've won " + player.wins + " out of " + gameCounter);
 }); //close deal cards
 
+function killKids() {
+	$playerHand.children().remove();
+	$dealerHand.children().remove();
+	console.log('killed the kids :)');
+}
+
 //write a function to reset the board
 function nextGame() {
+	gameInProgress = false;
 	// empty the player and dealer hands 
-	for (var i = -11; i <= player.currentHand.length; i++) {
-		player.currentHand.shift(usedCards);
-		usedCards.unshift(player.currentHand);
+	for (var i = -1; i < player.currentHand.length; i++) {
+		player.currentHand[i].shift(usedCards);
+		usedCards.unshift(player.currentHand[i]);
 	} //empty the player hand
 
-	for (var i = -11; i < dealer.currentHand.length; i++) {
-		dealer.currentHand.shift(usedCards);
-		usedCards.unshift(dealer.currentHand);
+	for (var i = -1; i < dealer.currentHand.length; i++) {
+		dealer.currentHand[i].shift(usedCards);
+		usedCards.unshift(dealer.currentHand[i]);
 	} //empty the dealer hand
 	//reset the hand totals
 	player.handTotal = 0;
@@ -364,6 +340,9 @@ function nextGame() {
 	$playerHand.children().remove();
 	$dealerHand.children().remove();
 }
+
+
+
 
 // BUST should be an if that runs inside HIT ME that checks that the card totals are not greater than 21
 
