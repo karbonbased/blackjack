@@ -188,7 +188,7 @@ function drawPlayerCard() {
 function drawDealerCard() {
 	cards.shift(dealer.currentHand);
 	dealer.currentHand.unshift(cards[0]);
-}	$currentBet.text(player.currentBet)
+}
 
 function lostCash() {
 	player.currentBet = 0;
@@ -222,19 +222,7 @@ function blackJack() {
 }
 
 function checkWinner() {
-	if (player.handTotal > 21) {
-		$alertCenter.html("BUST!")
-		lostCash();
-		gameInProgress = false;
-	} // closes else if BUST
-	else if (dealer.handTotal > 21) {
-		$alertCenter.html("Dealer BUST! You win!")
-		player.wins += 1;
-		$winsTotal.text("You've won " + player.wins + " out of " + gameCounter);
-		payOut();
-		gameInProgress = false;
-	}
-	else if ((player.handTotal == dealer.handTotal)) {
+	if ((player.handTotal == dealer.handTotal)) {
 		$alertCenter.html("This would be a tie");
 		player.money = (player.currentBet + player.money);
 		lostCash();
@@ -252,6 +240,9 @@ function checkWinner() {
 		lostCash()
 		gameInProgress = false;
 	}
+	else {
+		alert("no winner yet, dealer will take turn");
+	}
 } // closes checkWinner function
 
 $dealCards.click(function() {
@@ -262,6 +253,21 @@ $dealCards.click(function() {
 		return $alertCenter.text("You must place bet before cards are dealt");
 	} //closes if check for bet
 	else {
+			function checkBust() {
+			if (player.handTotal > 21) {
+			$alertCenter.html("BUST!")
+			lostCash();
+			gameInProgress = false;
+		} // closes else if BUST
+		else if (dealer.handTotal > 21) {
+			$alertCenter.html("Dealer BUST! You win!")
+			player.wins += 1;
+			$winsTotal.text("You've won " + player.wins + " out of " + gameCounter);
+			payOut();
+			gameInProgress = false;
+		} //closes else if for dealer bust
+			} // closes checkbust function
+
 	var $dealerHiddenCard = $('<div>');
 	$dealerHiddenCard.addClass("face-down-card");
 	$dealerHiddenCard.appendTo($('#dealer-hand'));
@@ -317,26 +323,46 @@ var $PlayerCard = $('<div>');
 		getPlayerHandTotal();
 		$alertCenter.html("Your hand total is " + player.handTotal +" and dealer is showing " + dealer.currentHand[0].cardValue + "<br/>" + "<br/>" + "Would you like to hit or stand?");
 		blackJack();
+		checkBust();
 	}) //close hit button
 
 	var $standButton = $('#stand');
 	$standButton.click(function() {
-		$alertCenter.html("Dealer will now take his turn");
 		$dealerHiddenCard.addClass("card");
 		$dealerHiddenCard.removeClass("face-down-card");
 		$dealerHiddenCard.text(dealer.currentHand[1].cardName);
+		$alertCenter.html("Dealer will now take his turn, showing " + dealer.handTotal);
 		console.log($dealerHiddenCard)
 
-		// var $newdealerCard = $('<div>')
-		// $dealerCard.attr("id", "current-card")
-		// $dealerCard.addClass("card");
-		// $dealerCard.appendTo($('#dealer-hand'));
-		// drawDealerCard();
-		// $dealerCard.text(dealer.currentHand[0].cardName);
-		// $dealerCard.addClass(dealer.currentHand[0].suit);
-		// getDealerHandTotal();
+		if (dealer.currentHand > player.currentHand) {
+		checkWinner();
+		}
+
+		else  {
+		setTimeout(function() {
+			var $newDealerCard = $('<div>')
+			$newDealerCard.attr("id", "new-card")
+			$newDealerCard.addClass("card");
+			$newDealerCard.appendTo($('#dealer-hand'));
+			drawDealerCard();
+			$newDealerCard.text(dealer.currentHand[0].cardName);
+			$newDealerCard.addClass(dealer.currentHand[0].suit);
+			getDealerHandTotal()}, 1000);
+		}
+		
+// 		setTimeout(function() {
+// 				var $newdealerCard = $('<div>')
+// 		$dealerCard.attr("id", "current-card")
+// 		$dealerCard.addClass("card");
+// 		$dealerCard.appendTo($('#dealer-hand'));
+// 		drawDealerCard();
+// 		$dealerCard.text(dealer.currentHand[0].cardName);
+// 		$dealerCard.addClass(dealer.currentHand[0].suit);
+// 		getDealerHandTotal()}, 1000);
+// $alertCenter.html("Dealer hit, dealer showing" + dealer.handTotal);
+
 		// 	console.log($dealerCard)
-	})
+	}) // close clicking on stand button
 
 	 
 } //close else
