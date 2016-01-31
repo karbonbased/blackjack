@@ -209,11 +209,17 @@ function blackJack() {
 		$winsTotal.text("You've won " + player.wins + " out of " + gameCounter);
 		payOut();
 		gameInProgress = false;
+		setTimeout(function() {
+			nextGame()}, 5000
+		)
 	} // close if for 21
 	else if (dealer.handTotal == 21) {
 		$alertCenter.html("Dealer has blackjack!<br/> You lose :(<br/><br/>Hit deal to start a new game!");
 		lostCash();
 		gameInProgress = false;
+		setTimeout(function() {
+			nextGame()}, 5000
+		)
 	}
 	else {
 		console.log("no blackjack... :(")
@@ -227,6 +233,9 @@ function checkWinner() {
 		player.money = (player.currentBet + player.money);
 		lostCash();
 		gameInProgress = false;
+		setTimeout(function() {
+			nextGame()}, 5000
+		)
 	} //closes else if tie
 	else if (player.handTotal > dealer.handTotal) {
 		$alertCenter.html("player wins!")
@@ -234,11 +243,17 @@ function checkWinner() {
 		$winsTotal.text("You've won " + player.wins + " out of " + gameCounter);
 		payOut();
 		gameInProgress = false;
+		setTimeout(function() {
+			nextGame()}, 5000
+		)
 	} // closes else if player wins
 	else if (player.handTotal < dealer.handTotal) {
 		$alertCenter.html("dealer wins! :(")
 		lostCash()
 		gameInProgress = false;
+		setTimeout(function() {
+			nextGame()}, 5000
+		)
 	}
 	else {
 		alert("no winner yet, dealer will take turn");
@@ -255,16 +270,22 @@ $dealCards.click(function() {
 	else {
 			function checkBust() {
 			if (player.handTotal > 21) {
-			$alertCenter.html("BUST!")
+			$alertCenter.html("BUST!<br/><br/>Next game will be ready in 5 seconds.")
 			lostCash();
 			gameInProgress = false;
+			setTimeout(function() {
+				nextGame()}, 5000
+			)
 		} // closes else if BUST
 		else if (dealer.handTotal > 21) {
-			$alertCenter.html("Dealer BUST! You win!")
+			$alertCenter.html("Dealer BUST!<br/>You win!<br/><br/>Next game will be ready in 5 seconds.")
 			player.wins += 1;
 			$winsTotal.text("You've won " + player.wins + " out of " + gameCounter);
 			payOut();
 			gameInProgress = false;
+			setTimeout(function() {
+				nextGame()}, 5000
+			)
 		} //closes else if for dealer bust
 			} // closes checkbust function
 
@@ -334,11 +355,17 @@ var $PlayerCard = $('<div>');
 		$alertCenter.html("Dealer will now take his turn, showing " + dealer.handTotal);
 		console.log($dealerHiddenCard)
 
-		if (dealer.currentHand > player.currentHand) {
-		checkWinner();
-		}
+		if ((player.handTotal == dealer.handTotal)) {
+			console.log("tie test");
+			checkWinner();
+		} //closes if for tie
 
-		else  {
+		else if (dealer.handTotal > player.handTotal) {
+		console.log("TEST")
+		checkWinner();
+		} // close if for dealer wins
+
+		else if (dealer.handTotal < player.handTotal) {
 		setTimeout(function() {
 			var $newDealerCard = $('<div>')
 			$newDealerCard.attr("id", "new-card")
@@ -347,9 +374,12 @@ var $PlayerCard = $('<div>');
 			drawDealerCard();
 			$newDealerCard.text(dealer.currentHand[0].cardName);
 			$newDealerCard.addClass(dealer.currentHand[0].suit);
+			$alertCenter.html("Dealer has hit, now showing " + dealer.handTotal);
 			getDealerHandTotal()}, 1000);
-		}
-		
+			setTimeout(function() {
+			checkWinner();}, 1000)
+		} //close else if dealer hits
+	
 // 		setTimeout(function() {
 // 				var $newdealerCard = $('<div>')
 // 		$dealerCard.attr("id", "current-card")
