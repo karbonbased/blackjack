@@ -120,7 +120,10 @@ $currentBet.text(player.currentBet);
 console.log($currentBet);
 
 var $betButton = $('.bet');
-// console.log($betButton);
+var $playerHand = $('#player-hand');
+var $dealerHand = $('#dealer-hand');
+var $dealCards = $('#deal-cards');
+var $alertCenter = $('#alert-center');
 
 //establish the betting logic
 $betButton.click(function() {
@@ -137,32 +140,6 @@ $betButton.click(function() {
 // establish the game counter
 var $winsTotal = $('#count');
 $winsTotal.text("You've won " + player.wins + " out of " + gameCounter);
-// deal cards will make a player place a bet before cards are dealt so IF current bet = 0, alert player
-// set up to intially deal the cards - should give 2 cards to dealer, 2 to player
-// both player cards will be visible but the dealer cards wtil only have the second one visible.
-
-var $playerHand = $('#player-hand');
-// console.log($playerHand)
-var $dealCards = $('#deal-cards');
-// console.log($dealCards);
-
-var $dealerHand = $('#dealer-hand');
-var $alertCenter = $('#alert-center');
-// console.log($alertCenter.text);
-
-// function getTotal(hand) {
-//    var total = 0;
-//    var ace = false;
-//    for (var i = 1; i <= hand.count; i++) {
-//        total += Math.min(10, hand[i].card.value); 
-//        if (hand[i].card.value == 1)
-//           ace = true;
-//    }
-//    if (total + 10 <= 21 && ace)
-//       total += 10;
-//   $alertCenter.text = 
-//    return total;
-// }
 
 function getPlayerHandTotal() {
 	total = 0
@@ -259,6 +236,14 @@ function checkWinner() {
 		alert("no winner yet, dealer will take turn");
 	}
 } // closes checkWinner function
+
+function checkForAce() {
+	for (var i = 0; i < player.currentHand.length; i++) {
+		if (player.currentHand[i].cardName == "A") {
+		console.log("this is an ACE!!!")
+	} //closes if
+	} //close for loop
+}
 
 $dealCards.click(function() {
 	if (gameInProgress == true) {
