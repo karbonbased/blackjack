@@ -265,7 +265,7 @@ $dealCards.click(function() {
 		else if (dealer.handTotal > 21) {
 			$alertCenter.html("Dealer BUST!<br/>You win!<br/><br/>Next game will be ready in 5 seconds.")
 			player.wins += 1;
-			$winsTotal.text("You've won " + player.wins + " out of " + gameCounter);
+			$winsTotal.text("You've won " + player.wins + " out of " + gameCounter + "games.");
 			payOut();
 			gameInProgress = false;
 			setTimeout(function() {
