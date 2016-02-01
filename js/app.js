@@ -257,19 +257,16 @@ $dealCards.click(function() {
 				for (var i = 0; i <= player.currentHand.length; i++) {
 					if ((player.handTotal > 21) && (player.currentHand[i].cardName == "A")) {
 						player.handTotal -= 10;
-						$alertCenter.html("Ace is now being treated as a 1");
-						setTimeout(function() {
-							$alertCenter.html("Your hand total is " + player.handTotal +" and dealer is showing " + dealer.currentHand[0].cardValue + "<br/>" + "<br/>" + "Would you like to hit or stand?"), 3500}
-						) //close set time out to change function
+						$alertCenter.html("Ace is now being treated as a 1<br/><br/>Your hand total is " + player.handTotal +" and dealer is showing " + dealer.currentHand[0].cardValue + "<br/>" + "<br/>" + "Would you like to hit or stand?");
 						return console.log("ace recognized")
 					} // closes if player has an Ace in their hand and is over 21
 					else if (player.handTotal > 21) {
 							$alertCenter.html("BUST!<br/><br/>Next game will be ready in 5 seconds.");
 							lostCash();
 							gameInProgress = false;
-							setTimeout(function() {
-							nextGame}, 5000
-							) //closes set timeout function for restarting the next game
+							// setTimeout(function() {
+							// nextGame}, 5000 //COMMENTING OUT WHILE I TEST
+							// ) //closes set timeout function for restarting the next game
 					} //closes else when there is not an A
 				} //closes for loop checking player current hand
 				for (var i = 0; i <= dealer.currentHand.length; i++) {
@@ -277,7 +274,7 @@ $dealCards.click(function() {
 						dealer.handTotal -= 10;
 						$alertCenter.html("Ace is now being treated as a 1");
 						setTimeout(function() {
-							alertCenter.html("Dealer now showing " + dealer.handTotal), 3500}
+							$alertCenter.html("Dealer now showing " + dealer.handTotal), 3500}
 						) //close set time out to change function
 						return console.log("ace recognized");
 					} // closes if dealer has an ace and is over 21
@@ -285,9 +282,9 @@ $dealCards.click(function() {
 						$alertCenter.html("Dealer BUST!<br/>You win!<br/><br/>Next game will be ready in 5 seconds.");
 						payOut();
 						gameInProgress = false;
-						setTimeout(function() {
-							nextGame()}, 5000
-						) // closes set timeout function for next game to begin in 5 seconds
+						// setTimeout(function() {
+						// 	nextGame()}, 5000 //COMMENTING OUT WHILE I TEST
+						// ) // closes set timeout function for next game to begin in 5 seconds
 					} // closes else bust for dealer
 				} //closes for loop for dealer
 			} // closes checkbust function
@@ -387,21 +384,23 @@ var $PlayerCard = $('<div>');
 			getDealerHandTotal()
 			$alertCenter.html("Dealer has hit, now showing " + dealer.handTotal);
 			}, 1000);
-			checkBust();
-			if (dealer.handTotal < 17) {
 			setTimeout(function() {
-			var $newDealerCard = $('<div>')
-			$newDealerCard.attr("id", "new-card")
-			$newDealerCard.addClass("card");
-			$newDealerCard.appendTo($dealerHand);
-			drawDealerCard();
-			$newDealerCard.text(dealer.currentHand[0].cardName);
-			$newDealerCard.addClass(dealer.currentHand[0].suit);
-			getDealerHandTotal()
-			$alertCenter.html("Dealer has hit, now showing " + dealer.handTotal);
-			}, 1000);
-			checkBust();		
-			} //closes if dealer handtotal is still under 17
+				checkBust();}, 1020) // closes set time out for checkBust	
+			// if (dealer.handTotal < 17) {
+			// setTimeout(function() {
+			// var $newDealerCard = $('<div>')
+			// $newDealerCard.attr("id", "new-card")
+			// $newDealerCard.addClass("card");
+			// $newDealerCard.appendTo($dealerHand);
+			// drawDealerCard();
+			// $newDealerCard.text(dealer.currentHand[0].cardName);
+			// $newDealerCard.addClass(dealer.currentHand[0].suit);
+			// getDealerHandTotal()
+			// $alertCenter.html("Dealer has hit, now showing " + dealer.handTotal);
+			// }, 1000);
+			// setTimeout(function() {
+			// 	checkBust();}, 1020) // closes set time out for checkBust	 	
+			// } //closes if dealer handtotal is still under 17
 			// setTimeout(function() {
 			// checkWinner();}, 3500) //COMMENTED OUT FOR TESTING!
 		} //close else if dealer hits
