@@ -109,7 +109,6 @@ $betButton.click(function() {
 	var $betChoice = $(this).text().replace(/\$/g, '');
 	var $betNum = parseInt($betChoice);
 	player.money -= $betNum;
-	console.log(player.money);
 	$bankRoll.text(player.money);
 	player.currentBet += $betNum;
 	$currentBet.text(player.currentBet)
@@ -135,13 +134,11 @@ function getDealerHandTotal() {
 function drawPlayerCard() {
 	cards.shift(player.currentHand);
 	player.currentHand.unshift(cards[0]);
-	console.log("one card has been dealt to player");
 }
 
 function drawDealerCard() {
 	cards.shift(dealer.currentHand);
 	dealer.currentHand.unshift(cards[0]);
-	console.log("one card has been dealt to dealer");
 }
 
 function lostCash() {
@@ -202,7 +199,8 @@ function checkWinner() {
 // ******************************START GAME******************************\\
 $dealCards.click(function() {
 	if (gameInProgress == true) {
-		return console.log("game already in progress");
+		
+		;
 	}
 	else if (player.currentBet == 0) {
 		return $alertCenter.text("You must place bet before cards are dealt");
@@ -231,7 +229,6 @@ $dealCards.click(function() {
 					)
 				} // closes else if fir dealer 
 				else {
-					console.log("no blackjack... :(")
 					return;
 				}
 			} // closes blackjack function
@@ -241,7 +238,7 @@ $dealCards.click(function() {
 					if ((player.handTotal > 21) && (player.currentHand[i].cardName == "A")) {
 						player.handTotal -= 10;
 						$alertCenter.html("Ace is now being treated as a 1<br/><br/>Your hand total is " + player.handTotal +" and dealer is showing " + dealer.currentHand[0].cardValue + "<br/>" + "<br/>" + "Would you like to hit or stand?");
-						return console.log("ace recognized")
+						return;
 					} // closes if player has an Ace in their hand and is over 21
 					else if (player.handTotal > 21) {
 							$alertCenter.html("BUST!<br/><br/>Next game will be ready in 4 seconds.");
@@ -255,7 +252,7 @@ $dealCards.click(function() {
 					if ((dealer.handTotal > 21) && (dealer.currentHand[i].cardName == "A")) {
 						dealer.handTotal -= 10;
 						$alertCenter.html("Ace is now being treated as a 1<br/><br/>Dealer now showing " + dealer.handTotal);
-						return console.log("ace recognized");
+						return;
 					} // closes if dealer has an ace and is over 21
 					else if (dealer.handTotal > 21) {
 						$alertCenter.html("Dealer BUST!<br/>You win!<br/><br/>Next game will be ready in 4 seconds.");
@@ -288,10 +285,8 @@ $dealCards.click(function() {
 	$initialPlayerCard.addClass("card");
 	$initialPlayerCard.appendTo($('#player-hand'));
 	drawPlayerCard();
-	console.log(player.currentHand[0].cardValue);
 	$initialPlayerCard.text(player.currentHand[0].cardName);
 	$initialPlayerCard.addClass(player.currentHand[0].suit);
-	console.log(player.currentHand[0].suit);
 
 var $PlayerCard = $('<div>');
 	$PlayerCard.attr("id", "player-current-card");
@@ -327,7 +322,6 @@ var $PlayerCard = $('<div>');
 		$dealerHiddenCard.removeClass("face-down-card");
 		$dealerHiddenCard.text(dealer.currentHand[1].cardName);
 		$alertCenter.html("Dealer will now take his turn, showing " + dealer.handTotal);
-		console.log($dealerHiddenCard)
 
 		if ((player.handTotal == dealer.handTotal)) {
 			checkWinner();
