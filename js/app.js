@@ -316,7 +316,6 @@ var $PlayerCard = $('<div>');
 
 	var $hitButton = $('#hit-me');
 	$hitButton.off().on('click', function() {
-			console.log("hit button has been clicked");
 			var $NewPlayerCard = $('<div>');
 			$NewPlayerCard.attr("id", "player-current-card");
 			$NewPlayerCard.addClass("card");
@@ -332,7 +331,6 @@ var $PlayerCard = $('<div>');
 
 	var $standButton = $('#stand');
 	$standButton.off().on('click', function() {
-		console.log("stand button has been clicked");
 		$dealerHiddenCard.addClass("card");
 		$dealerHiddenCard.removeClass("face-down-card");
 		$dealerHiddenCard.text(dealer.currentHand[1].cardName);
@@ -372,6 +370,7 @@ var $PlayerCard = $('<div>');
 
 			else if ((dealer.handTotal <= player.handTotal) && (dealer.handTotal <= 17)) {
 				while (dealer.handTotal <= 17) {
+					// setTimeout(function() {
 					var $newDealerCard = $('<div>')
 					$newDealerCard.attr("id", "new-card")
 					$newDealerCard.addClass("card");
@@ -379,9 +378,12 @@ var $PlayerCard = $('<div>');
 					drawDealerCard();
 					$newDealerCard.text(dealer.currentHand[0].cardName);
 					$newDealerCard.addClass(dealer.currentHand[0].suit);
-					getDealerHandTotal()
-					$alertCenter.html("Dealer has hit, now showing " + dealer.handTotal)
+					getDealerHandTotal();
+					$alertCenter.html("Dealer has hit, now showing " + dealer.handTotal); //}, 1000
+					// ) //closes set timeout 
+					checkBust();
 				} // closes while loop under 17
+				checkWinner();
 			} // closes else if dealer HITS for under 17
 
 		// else if ((dealer.handTotal <= player.handTotal) && (dealer.handTotal <= 17)) {
