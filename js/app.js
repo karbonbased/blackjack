@@ -222,7 +222,7 @@ function checkWinner() {
 // ******************************START GAME******************************\\
 $dealCards.click(function() {
 	if (gameInProgress == true) {
-		return;
+		return console.log("game already in progress");
 	}
 	else if (player.currentBet == 0) {
 		return $alertCenter.text("You must place bet before cards are dealt");
@@ -298,7 +298,6 @@ $dealCards.click(function() {
 	$dealerHiddenCard.addClass("face-down-card");
 	$dealerHiddenCard.appendTo($('#dealer-hand'));
 	drawDealerCard();
-	// $dealerHiddenCard.text(dealer.currentHand[0].cardValue);
 	$dealerHiddenCard.addClass(dealer.currentHand[0].suit);
 	
 	var $dealerCard = $('<div>')
@@ -310,8 +309,6 @@ $dealCards.click(function() {
 	$dealerCard.addClass(dealer.currentHand[0].suit);
 	getDealerHandTotal();
 
-	// var hand = $('cards[0]')
-	// console.log(hand);
 	var $initialPlayerCard = $('<div>');
 	$initialPlayerCard.attr("id", "player-current-card");
 	$initialPlayerCard.addClass("card");
@@ -330,9 +327,7 @@ var $PlayerCard = $('<div>');
 	$PlayerCard.text(player.currentHand[0].cardName);
 	$PlayerCard.addClass(player.currentHand[0].suit);
 	getPlayerHandTotal();
-	// getVisibleDealerTotal();
 
-	// console.log(dealer.handTotal - )
 	$alertCenter.html("Your hand total is " + player.handTotal +" and dealer is showing " + dealer.currentHand[0].cardValue + "<br/>" + "<br/>" + "Would you like to raise your bet, hit, or stand?")
 
 	blackJack();
@@ -456,6 +451,8 @@ function nextGame() {
 	$dealerHand.children().remove();
 
 	$alertCenter.html("Place a new bet and press deal to start a another game!")
+
+	gameInProgress = false
 }
 
 // BUST should be an if that runs inside HIT ME that checks that the card totals are not greater than 21
