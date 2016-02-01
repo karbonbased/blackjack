@@ -164,7 +164,8 @@ function payOut() {
 function checkWinner() {
 	if ((player.handTotal == dealer.handTotal)) {
 		$alertCenter.html("It's a tie!<br/>You get your money back :)<br/><br/>Next game will begin in 6 seconds.");
-		player.money = (player.currentBet + player.money);
+		var holdBet = player.currentBet
+		player.money = (holdBet + player.money);
 		lostCash();
 		gameInProgress = false;
 		setTimeout(function() {
@@ -374,8 +375,9 @@ var $PlayerCard = $('<div>');
 			drawDealerCard();
 			$newDealerCard.text(dealer.currentHand[0].cardName);
 			$newDealerCard.addClass(dealer.currentHand[0].suit);
+			getDealerHandTotal()
 			$alertCenter.html("Dealer has hit, now showing " + dealer.handTotal);
-			getDealerHandTotal()}, 1000);
+			}, 1000);
 			checkBust();
 			setTimeout(function() {
 			checkWinner();}, 5000)
