@@ -170,9 +170,9 @@ function checkWinner() {
 		$bankRoll.text(player.money);
 		lostCash();
 		gameInProgress = false;
-		setTimeout(function() {
-			nextGame()}, 5000
-		)
+		// setTimeout(function() {
+		// 	nextGame()}, 5000
+		// ) //COMMENTING OUT WHILE TESTING
 	} //closes else if tie
 	else if (player.handTotal > dealer.handTotal) {
 		$alertCenter.html("Player wins!<br/><br/>Next game will begin in 5 seconds.")
@@ -180,17 +180,17 @@ function checkWinner() {
 		$winsTotal.text("You've won " + player.wins + " out of " + gameCounter);
 		payOut();
 		gameInProgress = false;
-		setTimeout(function() {
-			nextGame()}, 5000
-		)
+		// setTimeout(function() {
+		// 	nextGame()}, 5000
+		// ) //COMMENTING OUT WHILE TESTING
 	} // closes else if player wins
 	else if (player.handTotal < dealer.handTotal) {
 		$alertCenter.html("Dealer wins! :(<br/><br/>Next game will begin in 5 seconds.")
 		lostCash()
 		gameInProgress = false;
-		setTimeout(function() {
-			nextGame()}, 5000
-		)
+		// setTimeout(function() {
+		// 	nextGame()}, 5000
+		// ) //COMMENTING OUT WHILE TESTING
 	}
 	else {
 		alert("no winner yet, dealer will take turn");
@@ -240,7 +240,12 @@ $dealCards.click(function() {
 					)
 				} // close if for 21
 				else if (dealer.handTotal == 21) {
-					$alertCenter.html("Dealer has blackjack!<br/> You lose :(<br/><br/>Hit deal to start a new game!");
+					setTimeout(function() {
+					$dealerHiddenCard.addClass("card");
+					$dealerHiddenCard.removeClass("face-down-card");
+					$dealerHiddenCard.text(dealer.currentHand[1].cardName);
+					$alertCenter.html("Dealer has blackjack!<br/> You lose :(<br/><br/>Hit deal to start a new game!");}, 2000
+						) //closes set timeout for dealer showing his hidden card if he has blackjack 2 seconds
 					lostCash();
 					gameInProgress = false;
 					setTimeout(function() {
@@ -334,18 +339,23 @@ var $PlayerCard = $('<div>');
 
 	var $hitButton = $('#hit-me');
 	$hitButton.click(function() {
-		console.log("hit button has been clicked");
-		var $PlayerCard = $('<div>');
-		$PlayerCard.attr("id", "player-current-card");
-		$PlayerCard.addClass("card");
-		$PlayerCard.appendTo($('#player-hand'));
-		drawPlayerCard();
-		$PlayerCard.text(player.currentHand[0].cardName);
-		$PlayerCard.addClass(player.currentHand[0].suit);
-		getPlayerHandTotal();
-		$alertCenter.html("Your hand total is " + player.handTotal +" and dealer is showing " + dealer.currentHand[0].cardValue + "<br/>" + "<br/>" + "Would you like to hit or stand?");
-		blackJack();
-		checkBust();
+		if (gameInProgress === false) {
+			return console.log('nice try');
+		} //close if for game in progress to prevent click when not in game mode
+		else if (gameInProgress === true) {
+			console.log("hit button has been clicked");
+			var $PlayerCard = $('<div>');
+			$PlayerCard.attr("id", "player-current-card");
+			$PlayerCard.addClass("card");
+			$PlayerCard.appendTo($('#player-hand'));
+			drawPlayerCard();
+			$PlayerCard.text(player.currentHand[0].cardName);
+			$PlayerCard.addClass(player.currentHand[0].suit);
+			getPlayerHandTotal();
+			$alertCenter.html("Your hand total is " + player.handTotal +" and dealer is showing " + dealer.currentHand[0].cardValue + "<br/>" + "<br/>" + "Would you like to hit or stand?");
+			blackJack();
+			checkBust();
+	} //close else if for game in progress true
 	}) //close hit button
 
 	var $standButton = $('#stand');
