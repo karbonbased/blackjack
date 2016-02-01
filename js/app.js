@@ -140,11 +140,13 @@ function getDealerHandTotal() {
 function drawPlayerCard() {
 	cards.shift(player.currentHand);
 	player.currentHand.unshift(cards[0]);
+	console.log("one card has been dealt to player");
 }
 
 function drawDealerCard() {
 	cards.shift(dealer.currentHand);
 	dealer.currentHand.unshift(cards[0]);
+	console.log("one card has been dealt to dealer");
 }
 
 function lostCash() {
@@ -163,31 +165,31 @@ function payOut() {
 
 function checkWinner() {
 	if ((player.handTotal == dealer.handTotal)) {
-		$alertCenter.html("It's a tie!<br/>You get your money back :)<br/><br/>Next game will begin in 6 seconds.");
-		var holdBet = player.currentBet
-		player.money = (holdBet + player.money);
+		$alertCenter.html("It's a tie!<br/>You get your money back :)<br/><br/>Next game will begin in 5 seconds.");
+		player.money = (player.currentBet + player.money);
+		$bankRoll.text(player.money);
 		lostCash();
 		gameInProgress = false;
 		setTimeout(function() {
-			nextGame()}, 6000
+			nextGame()}, 5000
 		)
 	} //closes else if tie
 	else if (player.handTotal > dealer.handTotal) {
-		$alertCenter.html("Player wins!<br/><br/>Next game will begin in 6 seconds.")
+		$alertCenter.html("Player wins!<br/><br/>Next game will begin in 5 seconds.")
 		player.wins += 1
 		$winsTotal.text("You've won " + player.wins + " out of " + gameCounter);
 		payOut();
 		gameInProgress = false;
 		setTimeout(function() {
-			nextGame()}, 6000
+			nextGame()}, 5000
 		)
 	} // closes else if player wins
 	else if (player.handTotal < dealer.handTotal) {
-		$alertCenter.html("Dealer wins! :(<br/><br/>Next game will begin in 6 seconds.")
+		$alertCenter.html("Dealer wins! :(<br/><br/>Next game will begin in 5 seconds.")
 		lostCash()
 		gameInProgress = false;
 		setTimeout(function() {
-			nextGame()}, 6000
+			nextGame()}, 5000
 		)
 	}
 	else {
@@ -234,7 +236,7 @@ $dealCards.click(function() {
 					payOut();
 					gameInProgress = false;
 					setTimeout(function() {
-						nextGame()}, 6000
+						nextGame()}, 5000
 					)
 				} // close if for 21
 				else if (dealer.handTotal == 21) {
@@ -242,7 +244,7 @@ $dealCards.click(function() {
 					lostCash();
 					gameInProgress = false;
 					setTimeout(function() {
-						nextGame()}, 6000
+						nextGame()}, 5000
 					)
 				} // closes else if fir dealer 
 				else {
@@ -257,16 +259,16 @@ $dealCards.click(function() {
 						player.handTotal -= 10;
 						$alertCenter.html("Ace is now being treated as a 1");
 						setTimeout(function() {
-							alertCenter.html("Your hand total is " + player.handTotal +" and dealer is showing " + dealer.currentHand[0].cardValue + "<br/>" + "<br/>" + "Would you like to hit or stand?"), 3500}
+							$alertCenter.html("Your hand total is " + player.handTotal +" and dealer is showing " + dealer.currentHand[0].cardValue + "<br/>" + "<br/>" + "Would you like to hit or stand?"), 3500}
 						) //close set time out to change function
 						return console.log("ace recognized")
 					} // closes if player has an Ace in their hand and is over 21
 					else if (player.handTotal > 21) {
-							$alertCenter.html("BUST!<br/><br/>Next game will be ready in 6 seconds.");
+							$alertCenter.html("BUST!<br/><br/>Next game will be ready in 5 seconds.");
 							lostCash();
 							gameInProgress = false;
 							setTimeout(function() {
-							nextGame}, 6000
+							nextGame}, 5000
 							) //closes set timeout function for restarting the next game
 					} //closes else when there is not an A
 				} //closes for loop checking player current hand
@@ -280,12 +282,12 @@ $dealCards.click(function() {
 						return console.log("ace recognized");
 					} // closes if dealer has an ace and is over 21
 					else if (dealer.handTotal > 21) {
-						$alertCenter.html("Dealer BUST!<br/>You win!<br/><br/>Next game will be ready in 6 seconds.");
+						$alertCenter.html("Dealer BUST!<br/>You win!<br/><br/>Next game will be ready in 5 seconds.");
 						payOut();
 						gameInProgress = false;
 						setTimeout(function() {
-							nextGame()}, 6000
-						) // closes set timeout function for next game to begin in 6 seconds
+							nextGame()}, 5000
+						) // closes set timeout function for next game to begin in 5 seconds
 					} // closes else bust for dealer
 				} //closes for loop for dealer
 			} // closes checkbust function
@@ -335,6 +337,7 @@ var $PlayerCard = $('<div>');
 
 	var $hitButton = $('#hit-me');
 	$hitButton.click(function() {
+		console.log("hit button has been clicked");
 		var $PlayerCard = $('<div>');
 		$PlayerCard.attr("id", "player-current-card");
 		$PlayerCard.addClass("card");
@@ -350,6 +353,7 @@ var $PlayerCard = $('<div>');
 
 	var $standButton = $('#stand');
 	$standButton.click(function() {
+		console.log("stand button has been clicked");
 		$dealerHiddenCard.addClass("card");
 		$dealerHiddenCard.removeClass("face-down-card");
 		$dealerHiddenCard.text(dealer.currentHand[1].cardName);
@@ -362,9 +366,14 @@ var $PlayerCard = $('<div>');
 		} //closes if for tie
 
 		else if (dealer.handTotal > player.handTotal) {
-		console.log("dealer wins without hitting test")
-		checkWinner();
+			console.log("dealer wins without hitting test")
+			checkWinner();
 		} // close if for dealer wins
+
+		else if (dealer.handTotal >= 17) {
+			console.log("no need for dealer to hit");
+			checkWinner();
+		}
 
 		else if ((dealer.handTotal < player.handTotal) && (dealer.handTotal < 17)) {
 		setTimeout(function() {
@@ -379,8 +388,22 @@ var $PlayerCard = $('<div>');
 			$alertCenter.html("Dealer has hit, now showing " + dealer.handTotal);
 			}, 1000);
 			checkBust();
+			if (dealer.handTotal < 17) {
 			setTimeout(function() {
-			checkWinner();}, 5000)
+			var $newDealerCard = $('<div>')
+			$newDealerCard.attr("id", "new-card")
+			$newDealerCard.addClass("card");
+			$newDealerCard.appendTo($dealerHand);
+			drawDealerCard();
+			$newDealerCard.text(dealer.currentHand[0].cardName);
+			$newDealerCard.addClass(dealer.currentHand[0].suit);
+			getDealerHandTotal()
+			$alertCenter.html("Dealer has hit, now showing " + dealer.handTotal);
+			}, 1000);
+			checkBust();		
+			} //closes if dealer handtotal is still under 17
+			// setTimeout(function() {
+			// checkWinner();}, 3500) //COMMENTED OUT FOR TESTING!
 		} //close else if dealer hits
 	
 // 		setTimeout(function() {
