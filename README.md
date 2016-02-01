@@ -2,20 +2,26 @@
 
 ##Description
 
-This is a description of the app
+A lovely and functional blackjack game.
 
 
-Tech used / Stack
+##Tech used / Stack
 
-Bullet point 1
-Bullet point 2
-Bullet point 3
-Features
+- HTML5
+- CSS3
+- Javascript
+- JQuery
 
-Bullet Point 1
-Bullet Point 2
-Bullet Point 3
-Future Implementations
+##Features
+
+- Tracks users bankroll
+- Tracks users current bet
+- Updates user in alert center of their current handtotal compared to cards shown by dealer
+- Alerts user of wins, losses and ties
+- Auto restarts game 4 seconds after win or loss
+- 
+
+##Future Implementations
 
 Bullet Point 1
 Bullet Point 2
