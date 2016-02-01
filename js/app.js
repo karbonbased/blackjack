@@ -163,31 +163,31 @@ function payOut() {
 
 function checkWinner() {
 	if ((player.handTotal == dealer.handTotal)) {
-		$alertCenter.html("This would be a tie");
+		$alertCenter.html("It's a tie!<br/>You get your money back :)<br/><br/>Next game will begin in 6 seconds.");
 		player.money = (player.currentBet + player.money);
 		lostCash();
 		gameInProgress = false;
-		// setTimeout(function() {
-		// 	nextGame()}, 6000
-		// )
+		setTimeout(function() {
+			nextGame()}, 6000
+		)
 	} //closes else if tie
 	else if (player.handTotal > dealer.handTotal) {
-		$alertCenter.html("player wins!")
+		$alertCenter.html("Player wins!<br/><br/>Next game will begin in 6 seconds.")
 		player.wins += 1
 		$winsTotal.text("You've won " + player.wins + " out of " + gameCounter);
 		payOut();
 		gameInProgress = false;
-		// setTimeout(function() {
-		// 	nextGame()}, 6000
-		// )
+		setTimeout(function() {
+			nextGame()}, 6000
+		)
 	} // closes else if player wins
 	else if (player.handTotal < dealer.handTotal) {
-		$alertCenter.html("dealer wins! :(")
+		$alertCenter.html("Dealer wins! :(<br/><br/>Next game will begin in 6 seconds.")
 		lostCash()
 		gameInProgress = false;
-		// setTimeout(function() {
-		// 	nextGame()}, 6000
-		// )
+		setTimeout(function() {
+			nextGame()}, 6000
+		)
 	}
 	else {
 		alert("no winner yet, dealer will take turn");
