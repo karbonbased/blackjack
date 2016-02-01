@@ -365,20 +365,20 @@ var $PlayerCard = $('<div>');
 		checkWinner();
 		} // close if for dealer wins
 
-		else if (dealer.handTotal < player.handTotal) {
-			console.log("SPECIAL");
-		// setTimeout(function() {
-		// 	var $newDealerCard = $('<div>')
-		// 	$newDealerCard.attr("id", "new-card")
-		// 	$newDealerCard.addClass("card");
-		// 	$newDealerCard.appendTo($('#dealer-hand'));
-		// 	drawDealerCard();
-		// 	$newDealerCard.text(dealer.currentHand[0].cardName);
-		// 	$newDealerCard.addClass(dealer.currentHand[0].suit);
-		// 	$alertCenter.html("Dealer has hit, now showing " + dealer.handTotal);
-		// 	getDealerHandTotal()}, 1000);
-		// 	setTimeout(function() {
-		// 	checkWinner();}, 1000)
+		else if ((dealer.handTotal < player.handTotal) && (dealer.handTotal < 17)) {
+		setTimeout(function() {
+			var $newDealerCard = $('<div>')
+			$newDealerCard.attr("id", "new-card")
+			$newDealerCard.addClass("card");
+			$newDealerCard.appendTo($dealerHand);
+			drawDealerCard();
+			$newDealerCard.text(dealer.currentHand[0].cardName);
+			$newDealerCard.addClass(dealer.currentHand[0].suit);
+			$alertCenter.html("Dealer has hit, now showing " + dealer.handTotal);
+			getDealerHandTotal()}, 1000);
+			checkBust();
+			setTimeout(function() {
+			checkWinner();}, 5000)
 		} //close else if dealer hits
 	
 // 		setTimeout(function() {
