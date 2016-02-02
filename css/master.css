@@ -125,7 +125,10 @@ h3 {
 .dynamic-numbers {
 	text-align: right;
 	display: inline-flex;
-
+	background-color: rgba(40,40,40,0.8);
+	color: rgba(240,240,240,0.8);
+	text-shadow: none;
+	text-align: right;
 }
 
 #dealer-hand {
