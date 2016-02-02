@@ -109,7 +109,7 @@ $betButton.click(function() {
 	var $betChoice = $(this).text().replace(/\$/g, '');
 	var $betNum = parseInt($betChoice);
 	player.money -= $betNum;
-	$bankRoll.text(player.money);
+	$bankRoll.html("&nbsp;" + player.money + "&nbsp;");
 	player.currentBet += $betNum;
 	$currentBet.text(player.currentBet)
 	console.log(typeof $currentBet);
