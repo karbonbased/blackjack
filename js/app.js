@@ -94,14 +94,14 @@ var $dealCards = $('#deal-cards');
 var $alertCenter = $('#alert-center');
 
 var $bankRoll = $('#current-bankroll')
-$bankRoll.text(player.money);
+$bankRoll.html("&nbsp;" + player.money + "&nbsp;");
 
 var $currentBet = $('#current-bet');
-$currentBet.text(player.currentBet);
+$currentBet.html("&nbsp;"+ player.currentBet + "&nbsp;");
 
 // establish the game counter
 var $winsTotal = $('#count');
-$winsTotal.text("You've won " + player.wins + " out of " + gameCounter);
+$winsTotal.html("You've won " + player.wins + " out of " + gameCounter + "&nbsp;");
 
 // ****************************ESTABLISHING GLOBAL FUNCTIONS**********************\\
 //establish the betting logic
@@ -114,32 +114,6 @@ $betButton.click(function() {
 	$currentBet.text(player.currentBet)
 	console.log(typeof $currentBet);
 })
-
-function getPlayerHandTotal() {
-	total = 0
-	for (var i = 0; i < player.currentHand.length; i++) {
-		total += player.currentHand[i].cardValue
-	}
-	player.handTotal = total;
-}
-
-function getDealerHandTotal() {
-	total = 0
-	for (var i = 0; i < dealer.currentHand.length; i++) {
-		total += dealer.currentHand[i].cardValue
-	}
-	dealer.handTotal = total;
-}
-
-function drawPlayerCard() {
-	cards.shift(player.currentHand);
-	player.currentHand.unshift(cards[0]);
-}
-
-function drawDealerCard() {
-	cards.shift(dealer.currentHand);
-	dealer.currentHand.unshift(cards[0]);
-}
 
 function lostCash() {
 	player.currentBet = 0;
@@ -155,6 +129,8 @@ function payOut() {
 
 function checkDeck() {
 	if (cards.length < 10) {
+		$playerHand.children().remove();
+		$dealerHand.children().remove();
 		var $restart = $('<div>');
 		var $placeholder = $('#placeholder')
 		$placeholder.css ("display", "inherit")
@@ -206,6 +182,32 @@ $dealCards.click(function() {
 		return $alertCenter.text("You must place bet before cards are dealt");
 	} //closes if check for bet
 	else {
+			function getPlayerHandTotal() {
+				total = 0
+				for (var i = 0; i < player.currentHand.length; i++) {
+					total += player.currentHand[i].cardValue
+				}
+				player.handTotal = total;
+			}
+
+			function getDealerHandTotal() {
+				total = 0
+				for (var i = 0; i < dealer.currentHand.length; i++) {
+					total += dealer.currentHand[i].cardValue
+				}
+				dealer.handTotal = total;
+			}
+
+			function drawPlayerCard() {
+				cards.shift(player.currentHand);
+				player.currentHand.unshift(cards[0]);
+			}
+
+			function drawDealerCard() {
+				cards.shift(dealer.currentHand);
+				dealer.currentHand.unshift(cards[0]);
+			}
+
 			function blackJack() {
 				if (player.handTotal == 21) {
 					$alertCenter.html("Blackjack! You win!");
