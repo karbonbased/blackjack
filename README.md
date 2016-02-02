@@ -2,7 +2,7 @@
 
 ##Description
 
-A lovely and functional blackjack game.
+A lovely and functional blackjack game that automatically tracks a user's hand total and compares against dealer card. 
 
 
 ##Tech used / Stack
@@ -19,27 +19,9 @@ A lovely and functional blackjack game.
 - Updates user in alert center of their current handtotal compared to cards shown by dealer
 - Alerts user of wins, losses and ties
 - Auto restarts game 4 seconds after win or loss
-- 
 
 ##Future Implementations
 
-Bullet Point 1
-Bullet Point 2
-Bullet Point 3
-
-
-
-# H1
-## H2
-### H3
-#### H4
-##### H5
-###### H6
-
-Alternatively, for H1 and H2, an underline-ish style:
-
-Alt-H1
-======
-
-Alt-H2
-------
+- Adding mobile version
+- Adding split feature
+- Adding another player (this would be the easiest of the 3 to implement)
