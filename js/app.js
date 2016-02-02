@@ -1,4 +1,4 @@
-// $( document ).ready(function() {
+$( document ).ready(function() {
 // ********************BUILDING THE DECK****************\\
 //constructor to build single cards
 function card(cardValue, cardName, suit) {
@@ -390,4 +390,4 @@ function nextGame() {
 	gameInProgress = false
 }
 
-// });
+});
